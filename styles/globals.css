@@ -1,26 +1,71 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
+:root {
+  --blue-500:#262225;
+  --blue-400:#29354B
+  ;
+  --blue-200:#4C8891;
 
-a {
-  color: inherit;
-  text-decoration: none;
+  --blue-light:#A0C8C3;
+
+  --gray: #ECEBE9;
+  --red:#F75A68;
+  --white:#EEEEEE
 }
 
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
+  font-family:  system-ui, 'Roboto Mono', monospace;
+  font-weight: 400;
 }
 
-@media (prefers-color-scheme: dark) {
+body {
+  background-color: var(--blue-400);
+}
+
+a {
+  text-decoration: none;
+  outline: none;
+  color: inherit;
+
+}
+
+@media (max-width: 768px) {
   html {
-    color-scheme: dark;
+      font-size: 87.5%
   }
-  body {
-    color: white;
-    background: black;
+}
+
+@media (max-width: 425px) {
+  html {
+      font-size: 75%
   }
+}
+
+.Button {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+
+  cursor: pointer;
+  padding: 0 0.3rem;
+
+  font-size: 0.8rem;
+  font-weight: 500;
+
+  background-color: transparent;
+  border: none;
+}
+
+
+.Liked {
+  color: var(--blue-200);
+}
+
+.NotLiked {
+  color: var(--gray);
+}
+
+.Button:hover {
+  color: var(--blue-200);
 }

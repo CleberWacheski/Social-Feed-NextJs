@@ -1,0 +1,37 @@
+.avatarForPost {
+    width: 4rem;
+
+    border-radius: 8px;
+    border: 2px var(--blue-400) solid;
+    outline: 3px  var(--blue-light) solid;
+}
+
+.avatarForSidebar {
+    width: 5.5rem;
+
+    margin-top: -1.875rem;
+
+    border-radius: 8px;
+    border: 2px var(--blue-400) solid;
+    outline: 3px  var(--blue-light) solid;
+}
+
+.avatarforComment {
+    width: 4rem;
+    object-fit: cover;
+
+    border-radius: 8px;
+}
+
+.AvatarForUserPage {
+    width: 5.5rem;
+
+    border-radius: 8px;
+    border: 2px var(--blue-400) solid;
+    outline: 3px  var(--blue-light) solid;
+    cursor: pointer;
+}
+
+.AvatarForUserPage:hover {
+    opacity: 0.8;
+}

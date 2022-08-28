@@ -1,0 +1,69 @@
+.textAreaContainer {
+    width: 100%;
+    padding: 1rem ;
+    
+    background-color: var(--blue-500);
+
+    border-radius: 8px;
+
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+}
+
+.textAreaContainer form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    align-items: flex-end;
+    gap: 0.5rem;
+}
+
+.ButtonForPublishedPost {
+    width: max-content;
+    height: min-content;
+
+    padding: 0.5rem 1rem;
+
+    border: none;
+
+    background-color: var(--blue-400);
+    color: var(--white);
+
+    transition: 200ms all;
+
+    border-radius: 5px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.ButtonForPublishedPost:not(:disabled):hover {
+    background-color: var(--blue-200);
+}
+
+.ButtonForPublishedPost:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.textArea {
+    resize: none;
+
+    height: 8rem;
+    width: 100%;
+    padding: 0.7rem;
+
+    font-size: 1rem;
+
+    border-radius: 8px;
+
+    border: 1px solid var(--blue-light);
+
+    background: transparent;
+    color: var(--white);
+
+    outline: none;
+}

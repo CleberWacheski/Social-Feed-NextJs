@@ -1,0 +1,74 @@
+.commentsWrapper {
+    display: flex;
+    flex-direction: row;
+
+    padding: 1rem 0;
+}
+.commentContent {
+    margin-left: 1rem;
+
+    width: 100%;
+
+}
+
+.comment {
+    background-color: var(--blue-400);
+
+    display: grid;
+    grid-template-columns: 1fr max-content;
+
+    padding: 1rem 0.8rem;
+    width: 100%;
+
+    font-size: 0.9rem;
+
+    border-radius: 8px;
+}
+
+.comment > div {
+    display: flex;
+    flex-direction: column;
+}
+
+.comment div strong {
+    color: var(--white);
+
+    font-weight: 600;
+
+}
+
+.comment div time {
+    font-size: 0.7rem;
+    font-weight: 500;
+    
+    color: var(--gray);
+}
+.comment div p {
+    margin-top: 1rem;
+    color: var(--white);
+    font-weight: 500;
+}
+
+.ButtonRemoveComment {
+    background-color: transparent;
+    align-self: flex-start;
+    border: none;
+    cursor: pointer;
+    color: var(--blue-200);
+}
+.ButtonRemoveComment:hover{
+
+    color: var(--blue-light);
+}
+
+
+.contentLikeComment {
+    margin-top: 1rem;
+
+    display: flex;
+    align-items: center;
+}
+
+.contentLikeComment span {
+    color: var(--gray);
+}
