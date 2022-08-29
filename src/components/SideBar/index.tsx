@@ -1,9 +1,10 @@
 import style from './style.module.css'
 
-import { Check, PencilLine, SignOut } from 'phosphor-react'
+import { SignOut, SignIn } from 'phosphor-react'
 import { Avatar } from '../Avatar'
 import { useContext, useState } from 'react'
 import { Context } from '../../Context/PostAndComments'
+import { signOut } from 'next-auth/react'
 
 export function SideBar() {
     const { User, editDataFromUser } = useContext(Context)
@@ -19,21 +20,22 @@ export function SideBar() {
             const data = {
                 email,
                 name,
-                picture: photo,
+                image: photo,
                 status: statusFromInput
             }
             editDataFromUser(data)
         }
+
+    }
+
+    function handleSignOut () {
+        signOut()
+        location.replace('/Autentication')
     }
 
     return (
         <aside className={style.sideBar}>
             <div>
-                <img
-                    src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=872&q=20"
-                    alt="foto de capa"
-                    className={style.cover}
-                />
                 <Avatar
                     src={User.photo}
                     alt=''
@@ -46,11 +48,8 @@ export function SideBar() {
                 >
                     {enabledStatusEdit ?
                         <>
-                            <p>{User.status}</p>
-                            <span
-                                onClick={handleUpdateStatusForUser}
-                            >
-                                <PencilLine size={18} color='#A0C8C3' />
+                            <span onClick={handleUpdateStatusForUser}>
+                                <p>{User.status}</p>
                             </span>
                         </>
                         :
@@ -61,26 +60,23 @@ export function SideBar() {
                                 onChange={(e) => setStatusFromInput(e.target.value)}
                             />
                             <span
-                                onClick={handleUpdateStatusForUser}
+                                onKeyDown={handleUpdateStatusForUser}
                             >
-                                <Check size={19} />
                             </span>
                         </>
                     }
                 </span>
 
                 <footer >
-                    <a href='/Autentication'>
-                        <button >
-                            Sair
-                            <SignOut size={25} />
-                        </button>
-                    </a>
+                  <button onClick={handleSignOut}>
+                      Sair 
+                      <SignOut size={24}/>
+                  </button>
 
                 </footer>
-
             </div>
 
         </aside>
     )
 }
+

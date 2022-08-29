@@ -88,10 +88,10 @@ export function ContextProvider({ children }: ContextProviderProps,) {
   const [listPosts, dispatch] = useReducer(ListsPostsReducer, [])
 
   const [User, dispatchFromUser] = useReducer(USER_Reducer, {
-    name: 'Cleber Wacheski',
-    email: '',
-    status: 'Web e Mobile Developer',
-    photo: 'https://avatars.githubusercontent.com/u/94264158?v=4'
+    name: '@Usuario',
+    email: 'usuario@gmail.com',
+    status: '',
+    photo: '/User.svg'
   })
 
 
