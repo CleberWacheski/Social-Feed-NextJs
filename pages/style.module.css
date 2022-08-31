@@ -1,31 +1,88 @@
-.Wrapper {
-    display: grid;
-    grid-template-columns: 270px 1fr;
-    max-width: 60rem;
-    margin: 2rem auto;
-
-    gap: 1rem;
-
+.container {
+    display: flex;
+    margin-top: 5rem;
+    justify-content: center;
+    align-items: center;
 }
 
-.Wrapper main {
+.container section {
+    background-color: var(--blue-500);
+
+    padding: 2rem;
+    border-radius: 8px;
+
+    gap: 0.7rem;
+
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.603);
+}
+
+.container section > span:first-of-type{
+    background-color: var(--blue-200);
+
+    width: max-content;
+    border-radius: 50%;
+    padding: 0.5rem;
+
+    overflow: hidden;
+
+
+}
+
+.container section p {
+    color: var(--blue-200);
+
+    font-size: 1.1rem;
+
+    font-weight: bolder;
+}
+
+.LoginWithGoogle,.UserLoggedButton {
+    padding: 0.4rem 2.5rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 0.4rem;
+
+    font-size: 1.1rem;
+    font-weight: bolder;
+
+    border: none;
+    outline: none;
+    border: 1px solid black;
+
+    cursor: pointer;
+
+    transition: all 0.2s;
+}
+
+.UserLoggedButton {
+    color: var(--white);
+    background-color: var(--blue-400);
+
+    padding: 0.4rem;
+
+}
+
+.UserLoggedButton:hover {
+    color: var(--blue-400);
+    background-color: var(--white);
 }
 
 
-@media (max-width: 768px) {
-    .Wrapper {
-        grid-template-columns: 1fr;
-        
-        padding: 0 2rem;
-    }
+.LoginWithGoogle:hover {
+    
+    color: var(--white);
+    background-color: var(--blue-400);
+
+    border: none;
+
 }
 
-@media (max-width: 425px) {
-     .Wrapper {
-        grid-template-columns: 1fr;
-    }
-}
 

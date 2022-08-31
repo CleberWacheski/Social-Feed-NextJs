@@ -8,6 +8,7 @@ import { Avatar } from '../Avatar'
 import style from './style.module.css'
 import { Context, PostProps } from '../../Context/PostAndComments';
 import { Trash } from 'phosphor-react';
+import Image from 'next/image';
 
 interface Post {
     content : PostProps
@@ -72,6 +73,17 @@ export function Post ({content} : Post ) {
                 </div>
             </header>
             <main>
+
+                { 
+               (content.image) &&
+               <Image 
+                    src={content.image}
+                    alt={content.image.name}
+                    width={100}
+                    height={100}
+                    objectFit='cover'
+                />
+                } 
                 <p>{content.content}</p>
 
             </main>

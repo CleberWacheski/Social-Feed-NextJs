@@ -1,37 +1,100 @@
+import { signIn, signOut, useSession } from 'next-auth/react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { SignOut } from 'phosphor-react'
+import { useContext, useEffect } from 'react'
+import { Avatar } from '../src/components/Avatar'
+import { Context } from '../src/Context/PostAndComments'
 import style from './style.module.css'
 
-import { useContext, useEffect } from 'react'
-import { Context } from '../src/Context/PostAndComments'
-import { SideBar } from '../src/components/SideBar'
-import { PublishedPostArea } from '../src/components/PublishedPostArea'
-import { Post } from '../src/components/Post/post'
-import { useSession } from 'next-auth/react'
+
+export default function Autentication() {
+    const { User, editDataFromUser } = useContext(Context)
+
+    const { data: session } = useSession()
+
+    useEffect(() => {
+        if (session) {
+            const data = { ...session.user, status: '' }
+            editDataFromUser(data)
+        }
+        else if (!session) {
+            const data = {
+                name: '@Usuario',
+                email: 'usuario@gmail.com',
+                image: '/User.svg',
+                status: ''
+            }
+            editDataFromUser(data)
+        }
+
+    }, [session, editDataFromUser])
 
 
-export default function Home() {
 
-  const { listPosts, editDataFromUser, User } = useContext(Context)
-  const { data: session } = useSession()
 
-    if (session) {
-      const data = { ...session.user, status: '' }
-      editDataFromUser(data)
-    }
-  
-    
-  return (
-    <section className={style.Wrapper}>
-      <SideBar />
-      <main>
-        <PublishedPostArea />
-        {listPosts.map(post =>
-          <Post
-            key={post.id}
-            content={post}
-          />
-        )}
-      </main>
-    </section>
-  )
+    return (
+        <div className={style.container}>
+            <section >
+                {
+                    (!session) ?
+                        <span>
+                            <Avatar
+                                src={User.photo}
+                                alt='Foto do usuario'
+                                className='avatarForSidebar'
+                            />
+                        </span>
+                        :
+                        <Avatar
+                            src={User.photo}
+                            alt='Foto do usuario'
+                            className='avatarForSidebar'
+                        />
+                }
+
+                <p>{User.name}</p>
+                <p>{User.email}</p>
+                {
+                    (!session) ?
+                        <span>
+                            <button className={style.LoginWithGoogle}
+                                onClick={() => signIn('google')}
+                            >
+                                <span>
+                                    <Image
+                                        src='/GoogleLogo.svg'
+                                        alt=''
+                                        width={18}
+                                        height={18}
+                                    />
+                                </span>
+                                <span>
+                                    Continue com o Google
+                                </span>
+                            </button>
+                        </span>
+                        :
+                        <>
+                        <button className={style.UserLoggedButton}>
+                            <Link href='/Home' prefetch>
+                                <span>
+                                    Continuar como {User.name}
+                                </span>
+                            </Link>
+                        </button>
+                        <button 
+                        className={style.UserLoggedButton}
+                            onClick={()=>signOut()}
+                        >
+                            <span>
+                                Sair 
+                            </span>
+                            <SignOut size={20}/>
+                    </button>
+                    </>
+                }
+            </section>
+        </div>
+    )
 }
-

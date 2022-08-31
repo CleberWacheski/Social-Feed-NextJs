@@ -14,7 +14,7 @@
     justify-content: center;
     align-items: center;
 
-    padding: 2rem 0;
+    padding: 1rem 0;
 }
 
 .sideBar div strong {
@@ -24,50 +24,40 @@
 
     color: var(--white);
 }
-.SelectStatusUser {
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
-    margin-top: 0.5rem;
-    padding-left: 0.5rem;
-
-    color: var(--white);
-
-    gap: 0.2rem;
-
+.statusUserArea  {
     width: 100%;
 }
 
-.SelectStatusUser span:hover {
-   
-    color: var(--blue-light);
-    cursor: pointer;
-}
+.statusUserArea input {
 
-.SelectStatusUser input {
-    border: none;
+    height: max-content;
+    width: 90%;
 
-    background: transparent;
-
-    outline: none;
-    border-bottom: 1px solid var(--white);
-
-    color: var(--white) ;
-
-    font-size: 1.05rem;
+    resize: none;
     
-    padding: 0 0.3rem;
-    margin-top: 0.3rem;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    text-align: center;
 
-    width: 85%;
+    font-size: 0.9rem;
+    font-weight: bolder;
 
+    color: var(--white);
+}
+.statusUserArea input:not(:focus):hover {
+    cursor: pointer;
+    color: var(--blue-200);
 }
 
+.statusUserArea input:focus {
+    border-bottom: 1px solid var(--blue-200) ;
+    color: var(--blue-light);
+}
 
 
 .sideBar footer {
-   margin-top: 25px;
 
    border-top: 0.1px solid var(--blue-400);
 

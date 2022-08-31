@@ -42,14 +42,15 @@
     font-weight: 500;
 
     color: var(--gray);
+
+    font-size: 0.8rem;
+    max-width: 95%;
 }
 
-.post header time {
-    font-size: 0.7rem;
-}
 
 .post header p {
     padding: 0.3rem 0;
+    
 }
 
 .post main {

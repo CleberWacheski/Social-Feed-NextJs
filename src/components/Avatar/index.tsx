@@ -22,7 +22,6 @@ export function Avatar ({src,alt,className} : avatarProps) {
                    borderColor: '#29354B',
                    borderStyle : 'solid',
                 }}
-                
             />
         )
         break

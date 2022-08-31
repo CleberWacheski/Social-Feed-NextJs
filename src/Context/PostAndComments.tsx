@@ -34,6 +34,7 @@ export interface CommentProps {
 
 export interface PostProps {
   id: string;
+  image: any;
   name: string;
   status?: string;
   photo: string;
@@ -52,7 +53,7 @@ export interface UserProps {
 interface ContextSocialMediaProps {
   listPosts: PostProps[],
   User: UserProps,
-  CreateNewPost: (text: string) => void;
+  CreateNewPost: (text: string,file: File) => void;
   RemovePost: (id: string) => void;
   RemoveCommentInPost: (idForComment: string, idForPost: string) => void;
   CreateNewComment: (text: string, id: string) => void;
@@ -88,28 +89,29 @@ export function ContextProvider({ children }: ContextProviderProps,) {
   const [listPosts, dispatch] = useReducer(ListsPostsReducer, [])
 
   const [User, dispatchFromUser] = useReducer(USER_Reducer, {
-    name: '@Usuario',
-    email: 'usuario@gmail.com',
+    name: '',
+    email: '',
     status: '',
     photo: '/User.svg'
   })
 
 
-  async function CreateNewPost(text: string) {
+  async function CreateNewPost(text: string, file) {
 
     const newPost: PostProps = {
       name: User.name,
+      image: file,
       comments: [],
       photo: User.photo,
       content: text,
       time: String(new Date()),
       id: uuidv4(),
-      status: 'Web e Mobile Developer'
+      status: User.status
     }
 
-    await setDoc(doc(db, "LIST_POSTS", newPost.id), {
-      ...newPost
-    })
+    // await setDoc(doc(db, "LIST_POSTS", newPost.id), {
+    //   ...newPost
+    // })
 
     dispatch(createNewPostAction(newPost))
   }

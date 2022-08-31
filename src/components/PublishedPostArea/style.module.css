@@ -19,6 +19,25 @@
     align-items: flex-end;
     gap: 0.5rem;
 }
+.textAreaContainer form input[type="file"]  {
+    display: none;
+}
+.textAreaContainer form div:last-child {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+.textAreaContainer form label {
+    margin-top: 0.2rem;
+    cursor: pointer;
+    background-color: transparent;
+    color: var(--blue-light);
+
+    font-size: 0.8rem;
+}
+
+
 
 .ButtonForPublishedPost {
     width: max-content;

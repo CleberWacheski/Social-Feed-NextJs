@@ -6,10 +6,11 @@ import '../styles/globals.css'
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
     <>
+
       <Header />
       <SessionProvider session={session}>
         <ContextProvider>
-          <Component {...pageProps} />
+            <Component {...pageProps} />
         </ContextProvider>
       </SessionProvider>
 

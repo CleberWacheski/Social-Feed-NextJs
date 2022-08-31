@@ -1,36 +1,35 @@
 import style from './style.module.css'
 
-import { SignOut, SignIn } from 'phosphor-react'
+import { SignOut } from 'phosphor-react'
 import { Avatar } from '../Avatar'
-import { useContext, useState } from 'react'
+import { useContext, useRef, useState } from 'react'
 import { Context } from '../../Context/PostAndComments'
-import { signOut } from 'next-auth/react'
+import { useRouter } from 'next/router'
 
 export function SideBar() {
     const { User, editDataFromUser } = useContext(Context)
-
-    const [statusFromInput, setStatusFromInput] = useState(User.status)
-    const [enabledStatusEdit, setEnabledStatusEdit] = useState(true)
+    const inputReference = useRef<HTMLInputElement>(null)
+    const {push} = useRouter()
+    const [userStatus,setUserStatus] = useState('')
 
     function handleUpdateStatusForUser() {
-        setEnabledStatusEdit(state => state ? false : true)
-        if (statusFromInput != User.status) {
             const { email, name, photo, status } = User
 
             const data = {
                 email,
                 name,
                 image: photo,
-                status: statusFromInput
+                status: userStatus
             }
             editDataFromUser(data)
-        }
-
+            inputReference.current.blur()
+            
     }
 
+    
+
     function handleSignOut () {
-        signOut()
-        location.replace('/Autentication')
+        push('/')
     }
 
     return (
@@ -42,30 +41,15 @@ export function SideBar() {
                     className='avatarForSidebar'
                 />
                 <strong>{User.name}</strong>
-
-                <span
-                    className={style.SelectStatusUser}
-                >
-                    {enabledStatusEdit ?
-                        <>
-                            <span onClick={handleUpdateStatusForUser}>
-                                <p>{User.status}</p>
-                            </span>
-                        </>
-                        :
-                        <>
-                            <input
-                                required
-                                value={statusFromInput}
-                                onChange={(e) => setStatusFromInput(e.target.value)}
-                            />
-                            <span
-                                onKeyDown={handleUpdateStatusForUser}
-                            >
-                            </span>
-                        </>
-                    }
-                </span>
+                <div  className={style.statusUserArea} >
+                    <input 
+                    ref={inputReference}
+                    value={userStatus} 
+                    onChange={(e)=> setUserStatus(e.target.value)} 
+                    onBlur={handleUpdateStatusForUser}
+                    onKeyDown={(e)=> e.key === 'Enter' && handleUpdateStatusForUser() }
+                    />
+                </div>
 
                 <footer >
                   <button onClick={handleSignOut}>
