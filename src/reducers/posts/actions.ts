@@ -52,11 +52,12 @@ export function removeCommentAction (idForPost : string, idForComment : string) 
       }
 }
 
-export function getDataForFirestoreAction (docs : PostProps[]) {
+export function getDataForFirestoreAction (docs : PostProps[],URLs : any) {
     return {
         type: ActionTypes.GET_DATA_FIRESTORE,
         payload: {
-          data: docs
+          data: docs,
+          urls: URLs
         }
       }
 }

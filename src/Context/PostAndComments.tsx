@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useEffect, useState, useReducer } from "react";
+import { createContext, ReactNode, useEffect, useReducer } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { produce } from 'immer'
 import { app } from '../../Firebase/firebase'
@@ -11,6 +11,12 @@ import {
   deleteDoc,
   updateDoc,
 } from 'firebase/firestore'
+import {
+  getStorage,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+} from 'firebase/storage'
 import { ListsPostsReducer } from "../reducers/posts/reducer";
 import {
   createNewCommentAction,
@@ -21,6 +27,7 @@ import {
 } from "../reducers/posts/actions";
 import { dataProps, USER_Reducer } from "../reducers/user/reducer";
 import { editDataUser } from "../reducers/user/actions";
+import { URL as findImageURL } from "../utils/getURLimage";
 
 export interface CommentProps {
   id: string;
@@ -31,10 +38,16 @@ export interface CommentProps {
   likes: number;
 }
 
+interface ImageProps {
+  file: File | any;
+  width: number;
+  height: number;
+}
+
 
 export interface PostProps {
   id: string;
-  image: any;
+  image: ImageProps;
   name: string;
   status?: string;
   photo: string;
@@ -53,7 +66,7 @@ export interface UserProps {
 interface ContextSocialMediaProps {
   listPosts: PostProps[],
   User: UserProps,
-  CreateNewPost: (text: string,file: File) => void;
+  CreateNewPost: (text: string, image: ImageProps) => void;
   RemovePost: (id: string) => void;
   RemoveCommentInPost: (idForComment: string, idForPost: string) => void;
   CreateNewComment: (text: string, id: string) => void;
@@ -80,7 +93,7 @@ const ReturnFiltereedArraysForDate = (A: PostProps | CommentProps, B: PostProps 
 }
 
 const db = getFirestore(app)
-
+const storage = getStorage()
 
 export function ContextProvider({ children }: ContextProviderProps,) {
 
@@ -96,24 +109,38 @@ export function ContextProvider({ children }: ContextProviderProps,) {
   })
 
 
-  async function CreateNewPost(text: string, file) {
+  async function CreateNewPost(text: string, image: ImageProps) {
+
+    const id = uuidv4()
+
+    const storageRef = ref(storage, `${id}.png`)
+    const ImageToURL = URL.createObjectURL(image.file)
+
+    uploadBytes(storageRef, image.file).then(() => {
+      console.log('deu certo!!')
+    })
 
     const newPost: PostProps = {
       name: User.name,
-      image: file,
+      image: {
+        height: image.height,
+        width: image.width,
+        file: ImageToURL,
+      },
       comments: [],
       photo: User.photo,
       content: text,
       time: String(new Date()),
-      id: uuidv4(),
+      id,
       status: User.status
     }
 
-    // await setDoc(doc(db, "LIST_POSTS", newPost.id), {
-    //   ...newPost
-    // })
+    await setDoc(doc(db, "LIST_POSTS", newPost.id), {
+      ...newPost
+    })
 
     dispatch(createNewPostAction(newPost))
+
   }
 
   async function RemovePost(id: string) {
@@ -183,12 +210,21 @@ export function ContextProvider({ children }: ContextProviderProps,) {
 
     async function getDataFirebase() {
 
-      const FirebasePosts = []
+      const FirebasePosts: PostProps[] = []
       const docs = await getDocs(collection(db, 'LIST_POSTS'))
 
-      docs.forEach((doc) => FirebasePosts.push(doc.data()))
+      docs.forEach((doc) => FirebasePosts.push(doc.data() as PostProps))
 
-      dispatch(getDataForFirestoreAction(FirebasePosts))
+      const IDs = FirebasePosts.map((post) => post.id)
+
+      const URLs = await Promise.all(IDs.map(async (id) => {
+        return {
+          ID : id,
+          ImageUrl : await findImageURL(id)
+        }
+      }))
+
+      dispatch(getDataForFirestoreAction(FirebasePosts,URLs))
 
     }
 
@@ -215,5 +251,6 @@ export function ContextProvider({ children }: ContextProviderProps,) {
 
   )
 }
+
 
 

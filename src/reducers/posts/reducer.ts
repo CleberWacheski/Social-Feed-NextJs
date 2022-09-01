@@ -1,4 +1,3 @@
-import { DocumentData, QuerySnapshot } from "firebase/firestore"
 import produce from "immer"
 import { CommentProps, PostProps } from "../../Context/PostAndComments"
 import { ActionTypes } from "./actions"
@@ -13,6 +12,10 @@ interface actionProps {
         },
         comment?: CommentProps,
         data?: PostProps[],
+        urls?: {
+            ID: string;
+            ImageUrl: string;
+        }[]
     }
 }
 
@@ -48,11 +51,21 @@ export function ListsPostsReducer(state: PostProps[], action: actionProps) {
                 return draft
             })
         case ActionTypes.GET_DATA_FIRESTORE: {
-           return produce(state,draft=> {
-               draft = action.payload.data
-               return draft
-           })
+            return produce(state, draft => {
+                draft = action.payload.data
+
+                const PostsFormated = draft.map((post,i) => {
+                    const Selecturl = action.payload.urls.find(({ ID }) => ID === post.id)
+                    if (Selecturl) {
+                        draft[i].image.file = Selecturl.ImageUrl
+                    }
+                    return post
+                })
+                return draft
+            })
         }
     }
     return state
 }
+
+

@@ -19,6 +19,12 @@
     align-items: flex-end;
     gap: 0.5rem;
 }
+
+.textAreaContainer form p {
+    font-size: 0.7rem;
+    color: var(--blue-light);
+}
+
 .textAreaContainer form input[type="file"]  {
     display: none;
 }

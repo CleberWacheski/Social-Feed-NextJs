@@ -1,4 +1,4 @@
-import { useState,FormEvent, useContext } from 'react'
+import { useState, FormEvent, useContext } from 'react'
 import { formatDistanceToNow } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
@@ -11,28 +11,29 @@ import { Trash } from 'phosphor-react';
 import Image from 'next/image';
 
 interface Post {
-    content : PostProps
+    content: PostProps
 }
 
-export function Post ({content} : Post ) {
+export function Post({ content }: Post) {
 
-    const [textComment,setTextComment] = useState('')
-    const TimeFormart = formatDistanceToNow(new Date(content.time),{
+
+    const [textComment, setTextComment] = useState('')
+    const TimeFormart = formatDistanceToNow(new Date(content.time), {
         locale: ptBR
     })
 
-    const {User,RemovePost,CreateNewComment} = useContext(Context)
+    const { User, RemovePost, CreateNewComment } = useContext(Context)
 
     const disabledButton = !textComment
 
-     function HandlePublishCommentInPost (event :FormEvent ) {
-             event.preventDefault()
-             CreateNewComment(textComment,content.id)
-             setTextComment('')
-     }
-    
-    function HandleAddLikeInComment (id:string,liked:boolean) {
-        const commentSelected = content.comments.map((comment)=> {
+    function HandlePublishCommentInPost(event: FormEvent) {
+        event.preventDefault()
+        CreateNewComment(textComment, content.id)
+        setTextComment('')
+    }
+
+    function HandleAddLikeInComment(id: string, liked: boolean) {
+        const commentSelected = content.comments.map((comment) => {
             if (comment.id === id && liked === false) {
                 comment.likes++
             }
@@ -43,7 +44,6 @@ export function Post ({content} : Post ) {
         })
 
     }
-
 
     return (
         <div className={style.post}>
@@ -66,38 +66,36 @@ export function Post ({content} : Post ) {
                         Publicado há {TimeFormart}
                     </time>
                     {(content.name === User.name) &&
-                    <button onClick={()=> RemovePost(content.id)}>
-                        <Trash size={24}/>
-                    </button>
+                        <button onClick={() => RemovePost(content.id)}>
+                            <Trash size={24} />
+                        </button>
                     }
                 </div>
             </header>
             <main>
-
-                { 
-               (content.image) &&
-               <Image 
-                    src={content.image}
-                    alt={content.image.name}
-                    width={100}
-                    height={100}
-                    objectFit='cover'
-                />
-                } 
                 <p>{content.content}</p>
-
+                {
+                    (content.image) &&
+                    <Image
+                        src={content.image.file}
+                        alt=''
+                        width={content.image.width}
+                        height={content.image.height}
+                        objectFit='cover'
+                    />
+                }
             </main>
             <form onSubmit={HandlePublishCommentInPost}>
                 <strong>Deixe seu feedback</strong>
                 <textarea
-                    onChange={(e)=> setTextComment(e.target.value)}
+                    onChange={(e) => setTextComment(e.target.value)}
                     required
                     name='TextPost'
                     value={textComment}
                     placeholder='Deixe seu comentario'
                 />
 
-                <button 
+                <button
                     disabled={disabledButton}
                     type='submit'
                 >
@@ -105,9 +103,9 @@ export function Post ({content} : Post ) {
                 </button>
             </form>
 
-             {content.comments.map((comment)=> 
-                <Comments 
-                    PostID = {content.id}
+            {content.comments.map((comment) =>
+                <Comments
+                    PostID={content.id}
                     comment={comment}
                     key={comment.id}
                     HandleAddLikeInComment={HandleAddLikeInComment}
