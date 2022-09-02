@@ -41,31 +41,3 @@ a {
       font-size: 75%
   }
 }
-
-.Button {
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-
-  cursor: pointer;
-  padding: 0 0.3rem;
-
-  font-size: 0.8rem;
-  font-weight: 500;
-
-  background-color: transparent;
-  border: none;
-}
-
-
-.Liked {
-  color: var(--blue-200);
-}
-
-.NotLiked {
-  color: var(--gray);
-}
-
-.Button:hover {
-  color: var(--blue-200);
-}

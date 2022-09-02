@@ -15,7 +15,6 @@ import {
   getStorage,
   ref,
   uploadBytes,
-  getDownloadURL,
 } from 'firebase/storage'
 import { ListsPostsReducer } from "../reducers/posts/reducer";
 import {
@@ -35,7 +34,6 @@ export interface CommentProps {
   photo: string;
   content: string;
   time: string;
-  likes: number;
 }
 
 interface ImageProps {
@@ -112,21 +110,49 @@ export function ContextProvider({ children }: ContextProviderProps,) {
   async function CreateNewPost(text: string, image: ImageProps) {
 
     const id = uuidv4()
-
     const storageRef = ref(storage, `${id}.png`)
-    const ImageToURL = URL.createObjectURL(image.file)
 
-    uploadBytes(storageRef, image.file).then(() => {
-      console.log('deu certo!!')
-    })
+    if (image!= null) {
+
+      uploadBytes(storageRef, image.file).then(() => {
+        findImageURL(id).then((url) => {
+          setDoc(doc(db, "LIST_POSTS", id), {
+            name: User.name,
+            image: {
+              height: image.height,
+              width: image.width,
+              file: url,
+            },
+            comments: [],
+            photo: User.photo,
+            content: text,
+            time: String(new Date()),
+            id,
+            status: User.status
+          })
+        })
+      })
+    } else {
+      setDoc(doc(db, "LIST_POSTS", id), {
+        name: User.name,
+        comments: [],
+        photo: User.photo,
+        content: text,
+        time: String(new Date()),
+        id,
+        status: User.status
+      })
+    }
+
+    const Image = (image) ? {
+      height: image.height,
+      width: image.width,
+      file: URL.createObjectURL(image.file)
+    } : null
 
     const newPost: PostProps = {
       name: User.name,
-      image: {
-        height: image.height,
-        width: image.width,
-        file: ImageToURL,
-      },
+      image: Image,
       comments: [],
       photo: User.photo,
       content: text,
@@ -134,10 +160,6 @@ export function ContextProvider({ children }: ContextProviderProps,) {
       id,
       status: User.status
     }
-
-    await setDoc(doc(db, "LIST_POSTS", newPost.id), {
-      ...newPost
-    })
 
     dispatch(createNewPostAction(newPost))
 
@@ -159,8 +181,7 @@ export function ContextProvider({ children }: ContextProviderProps,) {
       name: User.name,
       photo: User.photo,
       content: text,
-      time: String(new Date()),
-      likes: 0,
+      time: String(new Date())
     }
 
     dispatch(createNewCommentAction(comment, id))
@@ -215,16 +236,8 @@ export function ContextProvider({ children }: ContextProviderProps,) {
 
       docs.forEach((doc) => FirebasePosts.push(doc.data() as PostProps))
 
-      const IDs = FirebasePosts.map((post) => post.id)
 
-      const URLs = await Promise.all(IDs.map(async (id) => {
-        return {
-          ID : id,
-          ImageUrl : await findImageURL(id)
-        }
-      }))
-
-      dispatch(getDataForFirestoreAction(FirebasePosts,URLs))
+      dispatch(getDataForFirestoreAction(FirebasePosts))
 
     }
 

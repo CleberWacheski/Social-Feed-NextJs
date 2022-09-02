@@ -61,14 +61,3 @@
     color: var(--blue-light);
 }
 
-
-.contentLikeComment {
-    margin-top: 1rem;
-
-    display: flex;
-    align-items: center;
-}
-
-.contentLikeComment span {
-    color: var(--gray);
-}

@@ -22,7 +22,6 @@
 
 .post header strong {
     font-weight: 600;
-
     color: var(--white);
 
 }
@@ -38,20 +37,20 @@
     color: var(--blue-light);
 }
 
-.post header p,.post header time {
-    font-weight: 500;
 
+.post header time {
     color: var(--gray);
-
     font-size: 0.8rem;
-    max-width: 95%;
+    font-style: italic;
 }
 
+@media (max-width: 425px) {
+    .post header time {
+        font-size: 65%
+    }
+  }
+  
 
-.post header p {
-    padding: 0.3rem 0;
-    
-}
 
 .post main {
     padding: 1rem 0;

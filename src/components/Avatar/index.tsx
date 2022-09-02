@@ -16,6 +16,7 @@ export function Avatar ({src,alt,className} : avatarProps) {
                 alt={alt}
                 width='80'
                 height='80'
+                objectFit='cover'
                 style={{
                    borderRadius:'8px',
                    borderWidth: '2px',
@@ -32,6 +33,7 @@ export function Avatar ({src,alt,className} : avatarProps) {
                 alt={alt}
                 width='80'
                 height='80'
+                objectFit='cover'
                 style={{
                     borderRadius:'8px',
                     objectFit:'cover'
@@ -45,8 +47,9 @@ export function Avatar ({src,alt,className} : avatarProps) {
             <Image 
                 src={src}
                 alt={alt}
-                width='100'
-                height='100'
+                width='80'
+                height='80'
+                objectFit='cover'
                 style={{    
                     borderRadius:'8px',
                     borderColor: 'blue',
@@ -64,6 +67,7 @@ export function Avatar ({src,alt,className} : avatarProps) {
                 alt={alt}
                 width='80'
                 height='80'
+                objectFit='cover'
                 style={{
                    borderRadius:'8px',
                    borderWidth: '2px',

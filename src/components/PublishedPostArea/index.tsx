@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { Context } from '../../Context/PostAndComments';
 import { Avatar } from '../Avatar'
 import style from './style.module.css'
@@ -7,11 +7,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
 import { Paperclip } from 'phosphor-react';
 
-interface ImageProps {
-    file : File;
-    width : number;
-    height : number;
-  }
 
 const createNewPostValidationSchema = zod.object({
     textForPublication: zod.string(),
@@ -24,11 +19,12 @@ export function PublishedPostArea() {
 
 
     const { CreateNewPost, User } = useContext(Context)
-    const [img, setImg] = useState({} as ImageProps)
+    const [img, setImg] = useState(null)
     const [imageName,setImageName] = useState('')
-
+    const inputFileRef = useRef<HTMLInputElement>()
 
     function getImage(file: File) {
+
         setImageName(file.name)
        
         const reader = new FileReader()
@@ -54,6 +50,8 @@ export function PublishedPostArea() {
     function handleClickInButtonForPublishedPost(data: NewPost) {
         CreateNewPost(data.textForPublication, img )
         reset()
+        inputFileRef.current.files = null
+        setImg(null)
         setImageName('')
     }
 
@@ -90,6 +88,7 @@ export function PublishedPostArea() {
                     </label>
                     <input type="file"
                         onChange={(e) => getImage(e.target.files[0])}
+                        ref={inputFileRef}
                         id='arquivo'
                         accept='image/*'
                     />

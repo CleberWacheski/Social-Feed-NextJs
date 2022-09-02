@@ -11,11 +11,7 @@ interface actionProps {
             post?: string
         },
         comment?: CommentProps,
-        data?: PostProps[],
-        urls?: {
-            ID: string;
-            ImageUrl: string;
-        }[]
+        data?: PostProps[]
     }
 }
 
@@ -53,14 +49,6 @@ export function ListsPostsReducer(state: PostProps[], action: actionProps) {
         case ActionTypes.GET_DATA_FIRESTORE: {
             return produce(state, draft => {
                 draft = action.payload.data
-
-                const PostsFormated = draft.map((post,i) => {
-                    const Selecturl = action.payload.urls.find(({ ID }) => ID === post.id)
-                    if (Selecturl) {
-                        draft[i].image.file = Selecturl.ImageUrl
-                    }
-                    return post
-                })
                 return draft
             })
         }

@@ -36,23 +36,11 @@ export default function Autentication() {
     return (
         <div className={style.container}>
             <section >
-                {
-                    (!session) ?
-                        <span>
-                            <Avatar
-                                src={User.photo}
-                                alt='Foto do usuario'
-                                className='avatarForSidebar'
-                            />
-                        </span>
-                        :
-                        <Avatar
-                            src={User.photo}
-                            alt='Foto do usuario'
-                            className='avatarForSidebar'
-                        />
-                }
-
+                <Avatar
+                    src={User.photo}
+                    alt='Foto do usuario'
+                    className='avatarForSidebar'
+                />
                 <p>{User.name}</p>
                 <p>{User.email}</p>
                 {
@@ -76,23 +64,23 @@ export default function Autentication() {
                         </span>
                         :
                         <>
-                        <button className={style.UserLoggedButton}>
-                            <Link href='/Home' prefetch>
+                            <button className={style.UserLoggedButton}>
+                                <Link href='/Home' prefetch>
+                                    <span>
+                                        Continuar como {User.name}
+                                    </span>
+                                </Link>
+                            </button>
+                            <button
+                                className={style.UserLoggedButton}
+                                onClick={() => signOut()}
+                            >
                                 <span>
-                                    Continuar como {User.name}
+                                    Sair
                                 </span>
-                            </Link>
-                        </button>
-                        <button 
-                        className={style.UserLoggedButton}
-                            onClick={()=>signOut()}
-                        >
-                            <span>
-                                Sair 
-                            </span>
-                            <SignOut size={20}/>
-                    </button>
-                    </>
+                                <SignOut size={20} />
+                            </button>
+                        </>
                 }
             </section>
         </div>

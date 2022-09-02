@@ -3,7 +3,7 @@
     align-items: center;
     justify-content: center;
 
-    padding: 0.4rem 0;
+    padding: 0.8rem 0;
 
     background-color: var(--blue-500);
 
@@ -14,7 +14,7 @@
 }
 
 .header strong {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     font-weight: bolder;
     font-style: italic;
 }

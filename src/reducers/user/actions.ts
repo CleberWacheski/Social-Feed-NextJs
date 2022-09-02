@@ -9,7 +9,7 @@ export function editDataUser (data : dataProps) {
     return {
         type : ActionTypesForUser.EDIT_DATA_USER,
         payload : {
-            data : data
+            data
         }
     }
 }

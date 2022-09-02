@@ -1,4 +1,4 @@
-.sideBar {
+.sidebar {
     background-color: var(--blue-500);
 
     border-radius: 8px;
@@ -8,7 +8,7 @@
    
 }
 
-.sideBar  div{
+.sidebar  div{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -17,8 +17,9 @@
     padding: 1rem 0;
 }
 
-.sideBar div strong {
-    margin-top: 1rem;
+.sidebar div strong {
+    padding: 1rem 0;
+
 
     font-weight: 600;
 
@@ -29,35 +30,9 @@
     width: 100%;
 }
 
-.statusUserArea input {
-
-    height: max-content;
-    width: 90%;
-
-    resize: none;
-    
-    border: none;
-    background-color: transparent;
-    outline: none;
-    text-align: center;
-
-    font-size: 0.9rem;
-    font-weight: bolder;
-
-    color: var(--white);
-}
-.statusUserArea input:not(:focus):hover {
-    cursor: pointer;
-    color: var(--blue-200);
-}
-
-.statusUserArea input:focus {
-    border-bottom: 1px solid var(--blue-200) ;
-    color: var(--blue-light);
-}
 
 
-.sideBar footer {
+.sidebar footer {
 
    border-top: 0.1px solid var(--blue-400);
 
@@ -68,7 +43,7 @@
 
 }
 
-.sideBar footer button {
+.sidebar footer button {
     border-radius: 8px;
 
     background-color: transparent;
@@ -76,7 +51,7 @@
 
     border: 1px var(--blue-light) solid;
 
-    padding: 10px 25px;
+    padding: 0.6rem 1rem;
     margin-top: 1rem;
 
     gap:10px;
@@ -94,11 +69,23 @@
     
 }
 
-.sideBar footer button:hover {
+.sidebar footer button:hover {
     border: none;
 
     background-color: var(--blue-200);
     color: var(--white);
 }
 
-
+/* 
+@media (max-width: 768px) {
+    html {
+        font-size: 87.5%
+    }
+  }
+  
+  @media (max-width: 425px) {
+    html {
+        font-size: 75%
+    }
+  } */
+  

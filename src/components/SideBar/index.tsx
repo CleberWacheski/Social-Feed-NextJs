@@ -21,7 +21,9 @@ export function SideBar() {
                 image: photo,
                 status: userStatus
             }
+
             editDataFromUser(data)
+            console.log(User)
             inputReference.current.blur()
             
     }
@@ -33,7 +35,7 @@ export function SideBar() {
     }
 
     return (
-        <aside className={style.sideBar}>
+        <aside className={style.sidebar}>
             <div>
                 <Avatar
                     src={User.photo}
@@ -41,15 +43,7 @@ export function SideBar() {
                     className='avatarForSidebar'
                 />
                 <strong>{User.name}</strong>
-                <div  className={style.statusUserArea} >
-                    <input 
-                    ref={inputReference}
-                    value={userStatus} 
-                    onChange={(e)=> setUserStatus(e.target.value)} 
-                    onBlur={handleUpdateStatusForUser}
-                    onKeyDown={(e)=> e.key === 'Enter' && handleUpdateStatusForUser() }
-                    />
-                </div>
+               
 
                 <footer >
                   <button onClick={handleSignOut}>

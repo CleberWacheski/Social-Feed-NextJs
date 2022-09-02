@@ -32,19 +32,6 @@ export function Post({ content }: Post) {
         setTextComment('')
     }
 
-    function HandleAddLikeInComment(id: string, liked: boolean) {
-        const commentSelected = content.comments.map((comment) => {
-            if (comment.id === id && liked === false) {
-                comment.likes++
-            }
-            else if (comment.id === id && liked === true) {
-                comment.likes--
-            }
-            return comment
-        })
-
-    }
-
     return (
         <div className={style.post}>
             <header>
@@ -56,10 +43,7 @@ export function Post({ content }: Post) {
                             className='avatarForPost'
                         />
                     </div>
-                    <div>
-                        <strong>{content.name}</strong>
-                        <p>{content.status}</p>
-                    </div>
+                    <strong>{content.name}</strong>
                 </div>
                 <div className={style.WrapperTimeAndIcon}>
                     <time>
@@ -108,7 +92,6 @@ export function Post({ content }: Post) {
                     PostID={content.id}
                     comment={comment}
                     key={comment.id}
-                    HandleAddLikeInComment={HandleAddLikeInComment}
                 />
             )}
 
