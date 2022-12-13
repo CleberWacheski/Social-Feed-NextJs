@@ -14,11 +14,6 @@
 
 </h1>
 
-
-## Demonstração :rocket: 
-
-[Feed Social - Vercel](https://social-feed-tawny.vercel.app/)
-
 ## Tecnologias :hammer_and_pick:
 
 As seguintes ferramentas foram usadas na construção do projeto:
